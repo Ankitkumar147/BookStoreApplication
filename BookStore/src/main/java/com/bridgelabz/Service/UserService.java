@@ -10,6 +10,7 @@ import com.bridgelabz.Response.Response;
 import com.bridgelabz.email.EmailService;
 import com.bridgelabz.util.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +29,15 @@ public class UserService implements IUserService {
 
     @Override
     public Response loginUser(LoginDto dto) {
-            return null;
+        User user = userRepository.findByEmail(dto.getEmail()).orElseThrow(() -> new UserBookRegistrationException("Login Failed", HttpStatus.OK, null, "false"));
+        boolean ispwd = Boolean.parseBoolean(dto.getPassword());
+        if (ispwd == false) {
+            throw new UserBookRegistrationException("Login failed", HttpStatus.OK, null, "false");
+        } else {
+            String token = jwt.createToken(user.getUserId());
+            return new Response("Successfully login user.", user, 200, token);
         }
+    }
 
     @Override
     public String registerUser(UserDto userDTO) throws UserBookRegistrationException {

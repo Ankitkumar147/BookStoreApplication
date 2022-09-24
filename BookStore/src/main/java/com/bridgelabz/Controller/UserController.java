@@ -7,13 +7,12 @@ import com.bridgelabz.Service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -33,12 +32,12 @@ public class UserController {
 
     @PostMapping("/loginUser")
     public ResponseEntity<ResponseDto> loginUser(@RequestBody LoginDto dto, BindingResult result){
-        ResponseDto responseDto = new ResponseDto("Login Succesfull",userService.loginUser(dto));
+        ResponseDto responseDto = new ResponseDto("Login Successful....",userService.loginUser(dto));
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
     @GetMapping("/ListUsers")
     public ResponseEntity<ResponseDto>getAllUser(){
-        ResponseDto responseDto = new ResponseDto("List of Users.",userService.getAllUser());
+        ResponseDto responseDto = new ResponseDto("List of Users---->",userService.getAllUser());
         return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.OK);
     }
 

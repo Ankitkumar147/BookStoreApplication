@@ -35,8 +35,17 @@ public class BookService {
                         .orElseThrow(() -> new CustomException("Book  Id not Found!!!"));
         }
 
-        public void deleteById(int bookId) {
+        public BookEntity deleteById(int bookId) {
                 BookEntity bookEntity = this.getById(bookId);
-                bookRepository.delete(bookEntity);
+               if(bookEntity!=null) {
+                       bookRepository.delete(bookEntity);
+               } else
+                       throw new CustomException("No Books Found");
+                return bookEntity;
+        }
+        public BookEntity deleteAll(BookEntity bookEntity){
+                 bookRepository.deleteAll();
+                 return bookEntity;
+
         }
 }

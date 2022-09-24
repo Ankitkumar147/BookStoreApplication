@@ -7,10 +7,9 @@ import com.bridgelabz.Service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/BookStore")
 public class BookController {
 
@@ -38,5 +37,14 @@ public class BookController {
     ResponseDto responseDto = new ResponseDto("Book:-", bookService.bookSearch(name));
     return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.OK);
     }
-
+    @DeleteMapping("/delete/{bookId}")
+    public ResponseEntity<ResponseDto>deleteById(@PathVariable int bookId){
+        ResponseDto responseDto = new ResponseDto("Book deleted Successfully",bookService.deleteById(bookId));
+        return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.OK);
+    }
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<ResponseDto>deleteAll(){
+        ResponseDto responseDto= new ResponseDto("All Books Deleted Successfully",bookService.deleteAll(new BookEntity() ));
+        return new ResponseEntity<ResponseDto>(responseDto,HttpStatus.OK);
+    }
 }

@@ -1,7 +1,6 @@
 package com.bridgelabz.Model;
 
 import com.bridgelabz.DTO.BookDto;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="Book")
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 @SequenceGenerator(name = "seq",initialValue = 1)
 public class BookEntity {
     @Id
